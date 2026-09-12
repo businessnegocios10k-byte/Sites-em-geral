@@ -9,7 +9,24 @@ HTML + CSS + JavaScript puros. Sem build, sem framework, sem node_modules.
 
 ## Como visualizar localmente
 
-**Opção 1 — abrir direto no navegador**
+**Opção 1 — arquivo único (mais simples)**
+
+O arquivo `conceito-odontologico.html` é o site inteiro em um só arquivo, com CSS,
+JavaScript e ícone embutidos. Basta dar dois cliques nele: funciona sem servidor,
+sem internet (exceto pelas fontes e pelo mapa) e sem a pasta de assets ao lado.
+
+Ele é gerado a partir dos arquivos-fonte — depois de qualquer alteração em
+`index.html`, `css/styles.css` ou `js/main.js`, regenere com:
+
+```bash
+cd conceito-odontologico
+python3 build-standalone.py
+```
+
+Para **publicar**, use os arquivos-fonte (a versão separada tem cache melhor).
+O arquivo único é para visualizar, enviar por e-mail ou mostrar para alguém.
+
+**Opção 2 — abrir a versão com arquivos separados**
 
 ```bash
 # a partir da raiz do repositório
@@ -18,7 +35,7 @@ xdg-open conceito-odontologico/index.html  # Linux
 start conceito-odontologico\index.html     # Windows
 ```
 
-**Opção 2 — servidor local (recomendado)**
+**Opção 3 — servidor local (recomendado para desenvolvimento)**
 
 Alguns recursos (o iframe do Google Maps, por exemplo) se comportam melhor via `http://`
 do que via `file://`:
@@ -38,6 +55,8 @@ Ou, com Node instalado: `npx serve conceito-odontologico`
 ```
 conceito-odontologico/
 ├── index.html                 # a página inteira (todas as 10 seções + JSON-LD)
+├── conceito-odontologico.html # versão de arquivo único, gerada (abrir com 2 cliques)
+├── build-standalone.py        # gera o arquivo único a partir dos fontes
 ├── css/
 │   └── styles.css             # estilos, mobile-first, com tokens de cor no :root
 ├── js/
