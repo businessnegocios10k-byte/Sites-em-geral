@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Conceito Odontológico — clínica odontológica em Hortolândia desde 1994">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06302F"/>
+      <stop offset="55%" stop-color="#0A403D"/>
+      <stop offset="100%" stop-color="#0C524E"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="50%" cy="50%">
+      <stop offset="0%" stop-color="#6FB3AA" stop-opacity=".55"/>
+      <stop offset="100%" stop-color="#6FB3AA" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="50%" cy="50%">
+      <stop offset="0%" stop-color="#C79A3C" stop-opacity=".45"/>
+      <stop offset="100%" stop-color="#C79A3C" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0v64" fill="none" stroke="#ffffff" stroke-opacity=".05" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="1090" cy="90" r="330" fill="url(#glowA)"/>
+  <circle cx="120" cy="600" r="290" fill="url(#glowB)"/>
+
+  <g transform="translate(80 86)">
+    <path d="M26 6c-4.4-3.4-10.7-3.4-14.4.5C7.7 10.7 7.7 17.5 9.5 23.5c1.5 4.7 3.7 9.3 5.6 13.4 1.1 2.5 4.7 2.2 5.6-.4l2.9-8.4c.4-1.2 2.1-1.2 2.5 0l2.9 8.4c1 2.6 4.5 2.9 5.6.4 1.9-4.1 4.1-8.7 5.6-13.4 1.8-6 1.8-12.8-2.1-17-3.7-3.9-10-3.9-14.4-.5z"
+          fill="none" stroke="#DCEDE9" stroke-width="3" stroke-linejoin="round" transform="scale(1.5)"/>
+  </g>
+
+  <text x="80" y="272" font-family="Georgia, 'Times New Roman', serif" font-size="34" fill="#EFE0C2" letter-spacing="6">HORTOLÂNDIA · SP — DESDE 1994</text>
+  <text x="80" y="376" font-family="Georgia, 'Times New Roman', serif" font-size="86" font-weight="bold" fill="#FFFFFF">Conceito Odontológico</text>
+  <text x="80" y="452" font-family="Helvetica, Arial, sans-serif" font-size="34" fill="#B9D6D1">Trinta anos cuidando do sorriso de Hortolândia.</text>
+
+  <rect x="80" y="500" width="1040" height="1" fill="#ffffff" fill-opacity=".16"/>
+  <text x="80" y="556" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#DCEDE9">R. Antônio Fernandes Leite, 72 — Jd. Santa Izabel</text>
+  <text x="80" y="596" font-family="Helvetica, Arial, sans-serif" font-size="28" fill="#8FBDB6">(19) 3845-6666 · conceitoodontologico.com.br</text>
+</svg>
