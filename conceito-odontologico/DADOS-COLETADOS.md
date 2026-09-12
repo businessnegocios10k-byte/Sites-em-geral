@@ -83,7 +83,25 @@ Nomes e especialidades vindos das páginas `/equipe/` e `/our-doctors/` do site 
 
 Números de CRO e fotos individuais: **[A CONFIRMAR]**.
 
-## 6. Descrição institucional
+## 6. Identidade visual
+
+O logotipo foi enviado pelo cliente como imagem (não como arquivo vetorial), então as cores
+foram **lidas visualmente da imagem**, não amostradas do arquivo:
+
+| Cor | Valor adotado | Onde aparece no logotipo |
+|---|---|---|
+| Cinza | `#6E7276` | anel e a palavra "Conceito" |
+| Laranja | `#F47B20` | swoosh e a palavra "Odontológico" |
+
+**[A CONFIRMAR]** os códigos exatos, se a clínica tiver o manual de marca ou o arquivo
+vetorial (.ai, .eps, .svg). Uma diferença de alguns pontos não é perceptível, mas se houver
+padrão definido, vale usar o oficial — é uma linha de CSS.
+
+**[A CONFIRMAR]** o arquivo original do logotipo. A marca no site é hoje um redesenho
+vetorial feito a partir da imagem enviada; o encaixe para o arquivo real já está pronto
+no header e no rodapé.
+
+## 7. Descrição institucional
 
 Frases de base, extraídas da comunicação da própria clínica (usadas na seção "Sobre"):
 
@@ -95,7 +113,7 @@ Frases de base, extraídas da comunicação da própria clínica (usadas na seç
 
 ---
 
-## 7. O que NÃO foi possível obter — precisa da sua confirmação
+## 8. O que NÃO foi possível obter — precisa da sua confirmação
 
 | # | Dado | Situação |
 |---|---|---|

@@ -15,14 +15,15 @@ from PIL import Image, ImageDraw, ImageFont
 W, H = 1200, 630
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "og-image.png")
 
-BRAND_900 = (6, 48, 47)
-BRAND_700 = (12, 82, 78)
-BRAND_100 = (220, 237, 233)
-TEAL_SOFT = (111, 179, 170)
-GOLD = (199, 154, 60)
-GOLD_SOFT = (239, 224, 194)
-MIST = (143, 189, 182)
-SUB = (185, 214, 209)
+# Cores tiradas do logotipo: grafite (estrutura) + laranja (acento).
+BRAND_900 = (27, 29, 32)
+BRAND_700 = (51, 55, 59)
+BRAND_100 = (231, 233, 234)
+TEAL_SOFT = (169, 174, 178)   # cinza claro, usado no brilho superior
+GOLD = (244, 123, 32)         # o laranja do logotipo
+GOLD_SOFT = (251, 216, 182)
+MIST = (169, 174, 178)
+SUB = (199, 203, 206)
 
 FONT_DIR = "/usr/share/fonts/truetype"
 SERIF_BOLD = f"{FONT_DIR}/dejavu/DejaVuSerif-Bold.ttf"
@@ -68,13 +69,17 @@ def radial_glow(size, color, opacity):
 
 
 # ---- Mini-renderizador do caminho SVG da marca (subconjunto M/c/l/z relativos) ----
-BRAND_PATH = (
-    "M20 6 c-3.4 -2.6 -8.2 -2.6 -11 .4 c-3 3.2 -3 8.4 -1.6 13 "
-    "c1.1 3.6 2.8 7.1 4.3 10.2 c.9 1.9 3.6 1.7 4.3 -.3 l2.2 -6.4 "
-    "c.3 -.9 1.6 -.9 1.9 0 l2.2 6.4 c.7 2 3.4 2.2 4.3 .3 "
-    "c1.5 -3.1 3.2 -6.6 4.3 -10.2 c1.4 -4.6 1.4 -9.8 -1.6 -13 "
-    "c-2.8 -3 -7.6 -3 -11 -.4 z"
+# Mesma marca do site (index.html), em coordenadas de um viewBox 40x40:
+# um anel de grafite aberto à direita, atravessado por um swoosh laranja.
+SWOOSH_PATH = (
+    "M9 26.5 c4.5 -9 14 -15 28 -16 "
+    "c-11 5 -19 10.5 -24 17.5 "
+    "c-1.3 1.8 -5 -.2 -4 -1.5 z"
 )
+RING_CENTRO = (20, 20)
+RING_RAIO = 13
+RING_ESPESSURA = 3.4
+RING_ANGULOS = (30, 277)  # graus; a abertura fica à direita, como no logotipo
 
 
 def bezier(p0, p1, p2, p3, steps=18):
@@ -132,14 +137,21 @@ def flatten(path_d):
     return pts
 
 
-def draw_mark(img, x, y, scale, color, width):
-    pts = [(x + px * scale, y + py * scale) for px, py in flatten(BRAND_PATH)]
-    # Supersampling: desenha 3x maior e reduz, para a linha sair suave.
+def draw_mark(img, x, y, scale, cor_anel, cor_swoosh):
+    """Desenha a marca (anel + swoosh) com supersampling, para sair sem serrilhado."""
     ss = 3
     big = Image.new("RGBA", (img.width * ss, img.height * ss), (0, 0, 0, 0))
     d = ImageDraw.Draw(big)
-    d.line([(p[0] * ss, p[1] * ss) for p in pts], fill=color + (255,),
-           width=width * ss, joint="curve")
+
+    cx = (x + RING_CENTRO[0] * scale) * ss
+    cy = (y + RING_CENTRO[1] * scale) * ss
+    r = RING_RAIO * scale * ss
+    d.arc([cx - r, cy - r, cx + r, cy + r], RING_ANGULOS[0], RING_ANGULOS[1],
+          fill=cor_anel + (255,), width=max(1, round(RING_ESPESSURA * scale * ss)))
+
+    pts = [((x + px * scale) * ss, (y + py * scale) * ss) for px, py in flatten(SWOOSH_PATH)]
+    d.polygon(pts, fill=cor_swoosh + (255,))
+
     img.alpha_composite(big.resize(img.size, Image.LANCZOS))
 
 
@@ -157,7 +169,7 @@ def main():
     img.alpha_composite(radial_glow((680, 680), TEAL_SOFT, 0.55), (750, -250))
     img.alpha_composite(radial_glow((600, 600), GOLD, 0.40), (-180, 310))
 
-    draw_mark(img, 78, 78, 2.1, BRAND_100, 5)
+    draw_mark(img, 78, 74, 2.1, (169, 174, 178), GOLD)
 
     d = ImageDraw.Draw(img)
     d.text((80, 250), "HORTOLÂNDIA · SP  —  DESDE 1994", font=font(SERIF, 26), fill=GOLD_SOFT)

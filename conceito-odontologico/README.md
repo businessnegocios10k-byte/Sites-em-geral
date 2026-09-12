@@ -188,8 +188,10 @@ corretamente mesmo para quem acessa de outro fuso.
 
 ### Usar o logotipo real da clínica
 
-O site usa hoje uma marca em SVG desenhada para ele (um dente em traço), porque o
-arquivo original da clínica não pôde ser obtido. Para trocar pelo logotipo real:
+A marca no header e no rodapé é hoje uma **redesenho vetorial** do logotipo da clínica
+(anel de grafite aberto à direita + swoosh laranja, com "Conceito" em grafite e
+"Odontológico" em laranja), feito a partir da imagem que o cliente enviou. Para produção,
+o ideal é usar o arquivo original:
 
 1. Salve o arquivo em `assets/logo.svg` (preferível) ou `assets/logo.png`.
 2. No `index.html`, no header (linha ~48) e no rodapé, troque o bloco `<svg class="brand-mark">`
@@ -208,9 +210,23 @@ Aproveite para trocar também `assets/favicon.svg` pela versão reduzida da marc
 
 ### Alterar as cores da marca
 
-Todo o verde do site sai de **seis variáveis** no topo do `:root` de `css/styles.css`,
-dentro do bloco comentado `CORES DA MARCA`. Trocar aquelas seis linhas retinta a página
-inteira — hero, botões, ícones, rodapé, sombras e brilhos.
+A paleta atual vem do **logotipo da clínica**: grafite como estrutura e laranja como acento.
+
+| Token | Valor | Papel |
+|---|---|---|
+| `--brand-500` | `#6E7276` | o cinza do logotipo |
+| `--brand-900/800/700` | `#212427` / `#2B2F33` / `#3A3F44` | fundos escuros: hero, equipe, horários, CTA, rodapé |
+| `--accent` | `#F47B20` | o laranja do logotipo — botões, destaques, ícones |
+| `--accent-ink` | `#B25209` | o mesmo laranja escurecido, para **texto** sobre fundo claro |
+
+Sobre o `--accent-ink`: laranja puro sobre branco rende só 2,6:1 de contraste, bem abaixo do
+mínimo de 4,5:1 da WCAG AA. Por isso o laranja do logotipo aparece como **fundo** (botões,
+blocos) e o tom escurecido aparece como **texto** (eyebrows, links, números). Pela mesma
+razão os botões laranja levam texto grafite, não branco.
+
+Todas as cores saem de variáveis no topo do `:root` de `css/styles.css`, dentro do bloco
+comentado `CORES DA MARCA`. Trocá-las retinta a página inteira — hero, botões, ícones,
+rodapé, sombras e brilhos.
 
 Para gerar a escala automaticamente a partir do logotipo:
 
