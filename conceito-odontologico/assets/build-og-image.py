@@ -72,14 +72,16 @@ def radial_glow(size, color, opacity):
 # Mesma marca do site (index.html), em coordenadas de um viewBox 40x40:
 # um anel de grafite aberto à direita, atravessado por um swoosh laranja.
 SWOOSH_PATH = (
-    "M9 26.5 c4.5 -9 14 -15 28 -16 "
-    "c-11 5 -19 10.5 -24 17.5 "
-    "c-1.3 1.8 -5 -.2 -4 -1.5 z"
+    "M8 18.5 "
+    "c2 7 9 11 16.8 9.3 "
+    "c7.2 -1.6 12 -8.8 15.2 -20.8 "
+    "c-3 8 -8.5 13.6 -15 14.9 "
+    "c-6.7 1.3 -13.5 -.1 -17 -3.4 z"
 )
 RING_CENTRO = (20, 20)
-RING_RAIO = 13
-RING_ESPESSURA = 3.4
-RING_ANGULOS = (30, 277)  # graus; a abertura fica à direita, como no logotipo
+RING_RAIO = 12.6
+RING_ESPESSURA = 3.6
+RING_ANGULOS = (36, 277)  # graus; a abertura fica à direita, como no logotipo
 
 
 def bezier(p0, p1, p2, p3, steps=18):
