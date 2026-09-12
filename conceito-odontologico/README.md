@@ -65,7 +65,8 @@ conceito-odontologico/
 │   ├── favicon.svg            # ícone do site
 │   ├── og-image.svg           # arte-fonte do preview social (vetor)
 │   ├── og-image.png           # preview social 1200×630 usado nas meta tags
-│   └── build-og-image.py      # script que regenera o PNG a partir do design
+│   ├── build-og-image.py      # script que regenera o PNG a partir do design
+│   └── extract-brand-colors.py # gera a paleta CSS a partir de um logotipo
 ├── DADOS-COLETADOS.md         # o que foi extraído, de onde, e o que falta confirmar
 └── README.md
 ```
@@ -185,10 +186,62 @@ Os horários aparecem em **três** lugares que precisam ficar em sincronia:
 O selo "Aberto agora" calcula o estado sempre no fuso `America/Sao_Paulo`, então funciona
 corretamente mesmo para quem acessa de outro fuso.
 
-### Alterar cores e tipografia
+### Usar o logotipo real da clínica
 
-Todas as cores estão como custom properties no `:root` de `css/styles.css`.
-As fontes são Fraunces (títulos) e Inter (texto), carregadas do Google Fonts no `<head>`.
+O site usa hoje uma marca em SVG desenhada para ele (um dente em traço), porque o
+arquivo original da clínica não pôde ser obtido. Para trocar pelo logotipo real:
+
+1. Salve o arquivo em `assets/logo.svg` (preferível) ou `assets/logo.png`.
+2. No `index.html`, no header (linha ~48) e no rodapé, troque o bloco `<svg class="brand-mark">`
+   por:
+
+   ```html
+   <img class="brand-logo" src="assets/logo.svg" alt="Conceito Odontológico" width="180" height="40">
+   ```
+
+   Há um comentário `<!-- LOGOTIPO REAL -->` em cada um dos dois pontos indicando exatamente onde.
+3. Se o logotipo já trouxer o nome escrito, remova também o `<span class="brand-text">` ao lado,
+   para o nome não aparecer duas vezes.
+
+O CSS já tem a classe `.brand-logo` pronta (36px de altura no header, 40px no rodapé).
+Aproveite para trocar também `assets/favicon.svg` pela versão reduzida da marca.
+
+### Alterar as cores da marca
+
+Todo o verde do site sai de **seis variáveis** no topo do `:root` de `css/styles.css`,
+dentro do bloco comentado `CORES DA MARCA`. Trocar aquelas seis linhas retinta a página
+inteira — hero, botões, ícones, rodapé, sombras e brilhos.
+
+Para gerar a escala automaticamente a partir do logotipo:
+
+```bash
+pip install pillow
+
+# a partir do arquivo do logotipo
+python3 assets/extract-brand-colors.py assets/logo.png
+
+# ou direto de um código hex, se você já souber a cor
+python3 assets/extract-brand-colors.py --hex "#1B4F8A"
+
+# acrescente --write para já aplicar no CSS
+python3 assets/extract-brand-colors.py assets/logo.png --write
+```
+
+O script encontra a cor dominante do logotipo (ignorando branco, preto e cinzas) e monta
+os seis tons preservando **exatamente a mesma progressão de luminosidade** do design atual.
+Isso importa: os contrastes de texto sobre fundo escuro já foram validados nessa escala,
+então trocar só o matiz mantém a acessibilidade intacta.
+
+Depois de aplicar, atualize também:
+
+- `<meta name="theme-color">` no `<head>` do `index.html` (use o valor de `--brand-900`);
+- `assets/favicon.svg` e `assets/build-og-image.py`, que têm as cores embutidas;
+- o arquivo único, com `python3 build-standalone.py`.
+
+### Alterar a tipografia
+
+As fontes são Fraunces (títulos) e Inter (texto), carregadas do Google Fonts no `<head>`
+e referenciadas em `--font-display` e `--font-body`.
 
 ### Regenerar a imagem de preview social
 
